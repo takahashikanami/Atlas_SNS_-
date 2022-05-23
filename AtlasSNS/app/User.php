@@ -33,13 +33,13 @@ class User extends Authenticatable
    }
 
    // フォロー→フォロワー（リレーション）
-    public function followers(){
+    public function follows(){
         return $this->belongsToMany('App\User', 'follows', 'following_id', 'followed_id');
     }
 
     // フォロワー→フォロー（リレーション）
-    public function follows(){
-        return $this->belongsToMany('App\User', 'follows', 'following_id','followed_id');
+    public function followers(){
+        return $this->belongsToMany('App\User', 'follows', 'followed_id','following_id');
     }
 
     // フォローする
@@ -54,12 +54,12 @@ class User extends Authenticatable
 
     // フォローしているかどうか
     public function isFollowing(Int $user_id){
-        return (boolean) $this->follows()->where(‘followed_id’, $user_id)->exists();
+        return (boolean) $this->follows()->where('followed_id', $user_id)->exists();
     }
 
     // フォローされているか
     public function isFollowed(Int $user_id){
-        return (boolean) $this->followers()->where(‘following_id’, $user_id)->exists();
+        return (boolean) $this->followers()->where('following_id', $user_id)->exists();
     }
 
 

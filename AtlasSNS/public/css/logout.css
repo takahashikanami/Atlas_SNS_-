@@ -3,8 +3,143 @@
 html{
     height: 100%;
 }
-
 body{
-    height: 100%;
-    background: #186AC9;
+    background: linear-gradient(to bottom, #186AC9, #6699FF 40%, #56adfa 50%, #FFCC00);
+}
+
+#header {
+    text-align: center;
+    margin-top: 180px;
+}
+
+#header img {
+    width: 180px;
+}
+
+#header p {
+    color: white;
+    font-size: 35px;
+}
+
+.login-wrap{
+    text-align: center;
+    color: #fff;
+}
+
+form {
+    display: inline-block;
+    background-color: rgba(0,0,0,0.26);
+    padding: 20px 30px;
+    border-radius: 5px;
+    margin-top: 30px;
+}
+
+.login-title {
+    color: #fff;
+    text-align: center;
+    padding: 20px 30px;
+    margin: 20px 0;
+    font-size: 14px;
+}
+
+
+label{
+    padding-bottom: 10px;
+    display: block;
+    color: #fff;
+    text-align: left;
+    font-size: 14px;
+}
+
+.input {
+    display: block;
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 5px 0;
+    border: 1px solid #fff;
+    border-radius: 5px;
+}
+
+.submit{
+    width: 50%;
+    margin-left: 50px;
+    margin-bottom: 20px;
+    padding: 5px 10px;
+    background-color: #e9414f;
+    border: 1px solid #e9414f;
+    color: #fff;
+    border-radius: 5px;
+}
+
+
+.register{
+    width: 50%;
+    margin-left: 50%;
+    margin-bottom: 20px;
+    padding: 5px 10px;
+    background-color: red;
+    border: 1px solid red;
+    color: #fff;
+    border-radius: 5px;
+}
+.register-btn, .return {
+    padding-top: 20px;
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+
+.register-btn a, .return a {
+    color: #fff;
+    text-decoration: none;
+}
+
+h2 {
+    color: #fff;
+    padding: 20px 45px;
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+
+#clear {
+    display: inline-block;
+    background-color: rgba(0,0,0,0.26);
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 30px;
+}
+
+#clear p {
+    color: #fff;
+    padding-bottom: 10px;
+    font-size: 14px;
+    font-weight: lighter;
+}
+
+#clear .userName {
+    font-size: 18px;
+    font-weight: normal;
+    margin-top: 10px;
+}
+
+#clear .br {
+    margin-bottom: 20px;
+}
+#clear .complete {
+    text-align: left;
+}
+
+.btn {
+    width: 100px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    padding: 5px 10px;
+    background-color: red;
+    border: 1px solid red;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+}
+.btn a {
+    color: #fff;
+    text-decoration: none;
 }

@@ -29,24 +29,28 @@ Route::post('/register', 'Auth\RegisterController@register');
 Route::get('/added', 'Auth\RegisterController@added');
 Route::post('/added', 'Auth\RegisterController@added');
 
+Route::get('/logout', 'Auth\LoginController@logout');
 
 //ログイン中のページ
+Route::group(['middleware' => 'auth'], function () {
+
 Route::get('/top','PostsController@index');
 
-Route::get('/logout','Auth\LoginController@logout');
+Route::post('/post','PostsController@post');
+Route::get('/post/{id}/delete','PostsController@delete');
+Route::post('/post/update', 'PostsController@update');
 
 Route::get('/profile','UsersController@profile');
+Route::post('/profile','UsersController@profile');
 
 Route::get('/search','UsersController@search');
 Route::post('/search','UsersController@search');
 
-Route::get('/follow-list','PostsController@index');
-Route::get('/follower-list','PostsController@index');
+Route::get('/follow-list','FollowsController@followList');
+Route::get('/follower-list','FollowsController@followerList');
 
+Route::get('/search/{id}/follow', 'FollowsController@follow');
+Route::get('/search/{id}/unfollow', 'FollowsController@unfollow');
 
-Route::post('/post','PostsController@post');
-
-Route::post('/','PostsController@post');
-
-//削除
-Route::get('post/{id}/delete', 'PostsController@delete');
+Route::get('/otherUser/{id}', 'UsersController@otherProfile');
+});

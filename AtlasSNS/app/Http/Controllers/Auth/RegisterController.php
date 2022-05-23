@@ -83,12 +83,15 @@ class RegisterController extends Controller
             'mail'=>'required|string|email|max:40|min:5|unique:users',
             'password' => 'required|string|alpha_num|max:20|min:|unique:users|confirmed',
         ]);
+
             $data = $request->input();
             $this->create($data);
             $request->session()->put('registered',$data['username']);
             return redirect('added');
+
+         } else {
+            return view('auth.register');
         }
-        return view('auth.register');
     }
 
     public function added(){

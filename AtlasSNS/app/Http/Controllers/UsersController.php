@@ -9,30 +9,65 @@ use App\Post;
 
 class UsersController extends Controller
 {
-     // フォロー
-    public function follow(User $user)
+    public function profile(Request $request){
+        if($request->isMethod('post')){
+            $username = $request->input('username');
+            $mail = $request->input('mail');
+            $password = $request->input('password');
+            $bio = $request->input('bio');
+            $image = $request->file('image');
+
+            $data = $request->input();
+            $request->validate([
+              'username' => 'required|string|max:12|min:2',
+              'bio' => 'max:150',
+              'mail' => 'required|string|email|max:40|min:5|unique:users,mail,'.$request->id.',id',
+              'password' => 'required|string|min:4||confirmed',
+            ]);
+
+            User::where('id', Auth::id())->update(['mail' => $mail]);
+            User::where('id', Auth::id())->update(['password' => bcrypt($password)]);
+
+
+            if ($image != null){
+                $request->validate([
+                    'image' => 'file|image|mimes:gif,png,jpg,bmp,svg|max:2048'
+                ]);
+                $image_path = $image->store('public/images');
+                User::where('id', Auth::id())->update(['images' =>basename($image_path)]);
+            }
+
+            User::where('id', Auth::id())->update([
+                'username' => $username,
+                'bio' => $bio,
+            ]);
+            return redirect('profile');
+        } else {
+            $user = Auth::user();
+            return view('users.profile',['user' => $user]);
+            }
+    }
+    public function search(Request $request)
     {
-        $follower = auth()->user();
-        // フォローしているか
-        $is_following = $follower->isFollowing($user->id);
-        if(!$is_following) {
-            // フォローしていなければフォローする
-            $follower->follow($user->id);
-            return back();
+        $keyword = $request->input('name');
+
+        if (!empty($keyword)){
+            $users = User::where('username','like','%'.$keyword.'%')->get();
+            $request->session()->put('search', $keyword);
         }
+        else {
+            $users = User::all();
+            \Session::forget('search');
+        }
+
+        return view('users.search',['users' => $users]);
     }
 
-    // フォロー解除
-    public function unfollow(User $user)
-    {
-        $follower = auth()->user();
-        // フォローしているか
-        $is_following = $follower->isFollowing($user->id);
-        if($is_following) {
-            // フォローしていればフォローを解除する
-            $follower->unfollow($user->id);
-            return back();
-        }
+    public function otherProfile($id){
+        $user = User::where('id',$id)->first();
+        $post = Post::with('user')->where('user_id',$id)->get();
+
+        return view('users.otherProfile',['user' => $user, 'post' => $post]);
     }
 
 }

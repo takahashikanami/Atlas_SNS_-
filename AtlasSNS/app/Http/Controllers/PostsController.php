@@ -9,9 +9,8 @@ use Auth;
 
 class PostsController extends Controller
 {
-    //
-    public function __construct()
-    {
+    //authミドルウェアを使い、特定のルートやアクションを、認証済みユーザーだけがアクセスできるよう保護する
+    public function __construct(){
         $this->middleware('auth');
     }
 
@@ -33,10 +32,18 @@ class PostsController extends Controller
         return redirect('/top');
     }
 
-    public function delete($id)
-    {
-        $post = Post::where('id', $id)->delete();
+    public function delete($id){
+        \DB::table('posts')
+        ->where('id', $id)
+        ->delete();
+
         return redirect('/top');
     }
+    public function update(Request $request){
+        $form = $request->get('text');
+        $id = $request->get('id');
+        Post::where('id',$id)->update(['post' => $form]);
 
+        return redirect('/top');
+    }
 }
