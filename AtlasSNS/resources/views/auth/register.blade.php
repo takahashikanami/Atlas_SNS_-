@@ -1,27 +1,31 @@
 @extends('layouts.logout')
-
 @section('content')
-
-@if ($errors->any())
-<div class="alert alert-danger">
-        <ul>
-           @foreach ($errors->all() as $error)
-              <li>{{ $error }}</li>
-           @endforeach
-        </ul>
-</div>
-@endif
 
 <div class="login-wrap">
   {!! Form::open(['url' => '/register']) !!}
 
 <h2>新規ユーザー登録</h2>
+@if ($errors->has('username'))
+    <div class="alert-danger">
+            <p>{{ $errors->first('username') }}</p>
+    </div>
+  @endif
 {{ Form::label('UserName') }}
 {{ Form::text('username',null,['class' => 'input']) }}
 
+@if ($errors->has('mail'))
+    <div class="alert-danger">
+            <p>{{ $errors->first('mail') }}</p>
+    </div>
+@endif
 {{ Form::label('MailAddress') }}
 {{ Form::text('mail',null,['class' => 'input']) }}
 
+@if ($errors->has('password'))
+    <div class="alert-danger">
+            <p>{{ $errors->first('password') }}</p>
+    </div>
+  @endif
 {{ Form::label('Password') }}
 {{ Form::password('password',['class' => 'input']) }}
 
