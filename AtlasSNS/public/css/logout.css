@@ -1,15 +1,8 @@
 @charset "UTF-8";
 
-html{
-    height: 100%;
-}
 body{
     background: linear-gradient(to bottom, #186AC9, #6699FF 40%, #56adfa 50%, #FFCC00);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    height: 100vh;
 }
 
 #header {
@@ -37,6 +30,7 @@ form {
     padding: 20px 30px;
     border-radius: 5px;
     margin-top: 30px;
+
 }
 
 .login-title {
